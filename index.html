@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f4efe6">
+  <title>Quiet Reader</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="paper">
+  <header class="topbar">
+    <button class="icon-btn" id="libraryBtn" title="Открыть PDF">☰</button>
+    <div class="brand"><span class="brand-mark">q</span><span>quiet reader</span></div>
+    <div class="top-actions">
+      <button class="icon-btn" id="bookmarkBtn" title="Добавить закладку">☆</button>
+      <button class="icon-btn" id="settingsBtn" title="Настройки">Aa</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="welcome" id="welcome">
+      <div class="welcome-icon">▤</div>
+      <p class="eyebrow">YOUR PERSONAL LIBRARY</p>
+      <h1>Время читать.</h1>
+      <p class="muted">Открой PDF-книгу — приложение запомнит место, где ты остановился.</p>
+      <label class="primary-btn file-label">Открыть книгу<input id="fileInput" type="file" accept="application/pdf,.pdf"></label>
+      <p class="tiny muted">Файл обрабатывается прямо в браузере и не загружается на сервер.</p>
+    </section>
+
+    <section class="reader hidden" id="reader">
+      <div class="book-heading">
+        <div><p class="eyebrow" id="bookMeta">PDF BOOK</p><h1 id="bookTitle">Моя книга</h1></div>
+        <button class="text-btn" id="changeBook">Открыть другую</button>
+      </div>
+      <div class="reading-area">
+        <div class="page-wrap" id="pageWrap">
+          <div id="pageContainer" class="page-container">
+            <canvas id="pdfCanvas"></canvas>
+            <div id="textLayer" class="textLayer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="selection-tools hidden" id="selectionTools">
+        <span id="selectedText"></span>
+        <button id="translateBtn">Перевести ↗</button>
+        <button id="saveWordBtn">В словарь +</button>
+      </div>
+      <div class="controls">
+        <button class="round-btn" id="prevBtn" aria-label="Предыдущая страница">‹</button>
+        <div class="progress-block">
+          <div class="page-line"><span id="pageLabel">Страница 1 из 1</span><span id="percentLabel">0%</span></div>
+          <input type="range" id="pageRange" min="1" max="1" value="1">
+          <div class="progress-track"><div id="progressFill"></div></div>
+        </div>
+        <button class="round-btn" id="nextBtn" aria-label="Следующая страница">›</button>
+      </div>
+    </section>
+  </main>
+
+  <aside class="drawer hidden" id="drawer">
+    <div class="drawer-head"><h2>Библиотека</h2><button class="icon-btn" id="closeDrawer">×</button></div>
+    <label class="primary-btn file-label full">Открыть PDF<input id="fileInputDrawer" type="file" accept="application/pdf,.pdf"></label>
+    <div class="drawer-section"><h3>Закладки</h3><div id="bookmarkList" class="empty-note">Пока нет закладок</div></div>
+    <div class="drawer-section"><h3>Мой словарь</h3><div id="vocabList" class="empty-note">Сохранённых слов пока нет</div></div>
+  </aside>
+  <div class="scrim hidden" id="scrim"></div>
+
+  <dialog id="settingsDialog">
+    <div class="dialog-head"><h2>Настройки чтения</h2><button class="icon-btn" id="closeSettings">×</button></div>
+    <label>Тема
+      <select id="themeSelect"><option value="paper">Бумага</option><option value="sepia">Сепия</option><option value="dark">Ночь</option></select>
+    </label>
+    <label>Размер страницы
+      <div class="inline-controls"><button class="small-btn" id="zoomOut">−</button><span id="zoomValue">100%</span><button class="small-btn" id="zoomIn">+</button></div>
+    </label>
+    <p class="tiny muted">Выдели слово или фразу в тексте, чтобы открыть перевод или сохранить её в словарь.</p>
+  </dialog>
+
+  <div class="toast" id="toast"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
